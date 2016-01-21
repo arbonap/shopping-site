@@ -61,8 +61,9 @@ def shopping_cart():
     # TODO: Display the contents of the shopping cart.
 
     # The logic here will be something like:
-    #
+    display_melon_contents = request.get.args(session['cart'])
     # - get the list-of-ids-of-melons from the session cart
+
     # - loop over this list:
     #   - keep track of information about melon types in the cart
     #   - keep track of the total amt ordered for a melon-type
@@ -79,6 +80,18 @@ def add_to_cart(id):
     When a melon is added to the cart, redirect browser to the shopping cart
     page and display a confirmation message: 'Successfully added to cart'.
     """
+ 
+    current_melon = melons.get_by_id(id)
+
+    new_cart = []
+
+    if 'cart' not in session:
+        session['cart'] = new_cart
+    
+    session['cart'].append(id)
+
+    flash("Successfully added to cart")
+    return redirect("/cart")
 
     # TODO: Finish shopping cart functionality
 
@@ -86,7 +99,7 @@ def add_to_cart(id):
     #
     # - add the id of the melon they bought to the cart in the session
 
-    return "Oops! This needs to be implemented!"
+    # return "Oops! This needs to be implemented!"
 
 
 @app.route("/login", methods=["GET"])
